@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useTable, useFilters, useGlobalFilter, useSortBy } from 'react-table';
-import Navbar from '../components/Navbar'; // Adjust the path based on your file structure
 
 export default function Home() {
   const [data, setData] = useState([]);
