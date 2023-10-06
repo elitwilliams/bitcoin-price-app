@@ -163,7 +163,7 @@ function Footer() {
 
   return (
     <footer className="mt-10 mb-10 text-center">
-      © {currentYear} - Made with 🤖 in 🗽
+      © {currentYear} SQS Trading Group LLC - Made with 🤖 in 🗽
     </footer>
   );
 }
