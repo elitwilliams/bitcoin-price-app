@@ -47,8 +47,21 @@ export default function Home() {
         accessor: 'low_24h',
         Cell: ({ value }) => `$${new Intl.NumberFormat().format(parseFloat(value))}`,
       },
-      { Header: 'Price Change (24h)', accessor: 'price_change_24h', Cell: ({ value }) => `${parseFloat(value).toFixed(2)}%` },
       { Header: 'Price Change Percentage (24h)', accessor: 'price_change_percentage_24h', Cell: ({ value }) => `${parseFloat(value).toFixed(2)}%` },
+      {
+        Header: 'Price Change (24h)',
+        accessor: 'price_change_24h',
+        Cell: ({ value }) => {
+          const formattedPriceChange = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2, // Ensure 2 decimal places
+          }).format(value);
+
+          return formattedPriceChange;
+        },
+      },
+
     ],
     []
   );
@@ -84,7 +97,11 @@ export default function Home() {
         </div>
       </div>
 
-      <table {...getTableProps()} className={`mx-auto w-4/5 min-w-full shadow-md rounded-lg overflow-hidden ${darkMode ? 'bg-charcoalLighter text-charcoalLight' : 'bg-white text-black'} table-fixed`}>
+      <table
+        {...getTableProps()}
+        className={`mx-auto w-4/5 min-w-full shadow-md rounded-lg overflow-hidden ${darkMode ? 'bg-charcoalLighter text-charcoalLight dark-mode' : 'bg-white text-black'
+          } table-fixed react-table`}
+      >
 
         <colgroup>
           <col style={{ width: '5%' }} />

@@ -32,3 +32,18 @@ body {
   font-style: normal;
   font-display: swap;
 }
+
+/* Add styling for the hovered row */
+table.react-table tbody tr:hover {
+  background-color: #f0f0f0;
+  /* Change to your desired highlight color */
+  cursor: pointer;
+  /* Change cursor style on hover if needed */
+}
+
+table.react-table.dark-mode tbody tr:hover {
+  background-color: #2f1f3b;
+  /* Use a darker purplish color for dark mode */
+  cursor: pointer;
+  /* Change cursor style on hover if needed */
+}
