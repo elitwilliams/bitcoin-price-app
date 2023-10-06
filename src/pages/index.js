@@ -121,17 +121,17 @@ export default function Home() {
           className={`mx-auto w-full shadow-md rounded-lg ${darkMode ? 'bg-charcoalLighter text-charcoalLight dark-mode' : 'bg-white text-black'} table-fixed react-table`}>
 
           <colgroup>
+            <col style={{ width: '3%' }} />
+            <col style={{ width: '4%' }} />
             <col style={{ width: '5%' }} />
-            <col style={{ width: '6%' }} />
             <col style={{ width: '7%' }} />
-            <col style={{ width: '9%' }} />
-            <col style={{ width: '8%' }} />
-            <col style={{ width: '9%' }} />
-            <col style={{ width: '11%' }} />
-            <col style={{ width: '11%' }} />
-            <col style={{ width: '8%' }} />
+            <col style={{ width: '7%' }} />
             <col style={{ width: '8%' }} />
             <col style={{ width: '10%' }} />
+            <col style={{ width: '10%' }} />
+            <col style={{ width: '7%' }} />
+            <col style={{ width: '7%' }} />
+            <col style={{ width: '9%' }} />
           </colgroup>
           <thead>
             {headerGroups.map(headerGroup => (
