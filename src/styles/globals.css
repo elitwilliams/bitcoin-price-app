@@ -1,6 +1,8 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -21,17 +23,17 @@ body {
   background: linear-gradient(to bottom,
       transparent,
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
 
 }
 
-@font-face {
+/* @font-face {
   font-family: 'Gabarito';
   src: url('/fonts/Gabarito-Regular.ttf') format('ttf');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
-}
+} */
 
 /* Add styling for the hovered row */
 table.react-table tbody tr:hover {

@@ -29,9 +29,10 @@ export default function Home() {
         Cell: ({ value }) => <img src={value} alt="coin-logo" className="w-6 h-6" />,
         disableFilters: true,
       },
-      { Header: 'Name', accessor: 'name' },
-      { Header: 'Price', accessor: 'current_price', Cell: ({ value }) => `$${new Intl.NumberFormat().format(parseFloat(value))}` },
       { Header: 'Symbol', accessor: 'symbol', Cell: ({ value }) => value.toUpperCase() },
+      { Header: 'Price', accessor: 'current_price', Cell: ({ value }) => `$${new Intl.NumberFormat().format(parseFloat(value))}` },
+      { Header: 'Price Change Percentage (24h)', accessor: 'price_change_percentage_24h', Cell: ({ value }) => `${parseFloat(value).toFixed(2)}%` },
+      { Header: 'Name', accessor: 'name' },
       {
         Header: 'Volume',
         accessor: 'total_volume',
@@ -48,7 +49,6 @@ export default function Home() {
         accessor: 'low_24h',
         Cell: ({ value }) => `$${new Intl.NumberFormat().format(parseFloat(value))}`,
       },
-      { Header: 'Price Change Percentage (24h)', accessor: 'price_change_percentage_24h', Cell: ({ value }) => `${parseFloat(value).toFixed(2)}%` },
       {
         Header: 'Price Change (24h)',
         accessor: 'price_change_24h',
@@ -81,6 +81,7 @@ export default function Home() {
   return (
     <div className={`${darkMode ? 'bg-charcoalDark text-charcoalLight' : 'bg-gray-100 text-gray-800'} min-h-screen p-4 font-sans`}>
 
+
       <div className="flex justify-between items-center mb-4">
         <h1 className={`text-3xl font-bold`}>
           Top Cryptocurrencies by Market Cap
@@ -105,22 +106,22 @@ export default function Home() {
 
           <colgroup>
             <col style={{ width: '5%' }} />
+            <col style={{ width: '6%' }} />
+            <col style={{ width: '7%' }} />
             <col style={{ width: '10%' }} />
-            <col style={{ width: '17.5%' }} />
-            <col style={{ width: '17.5%' }} />
-            <col style={{ width: '17.5%' }} />
-            <col style={{ width: '17.5%' }} />
-            <col style={{ width: '17.5%' }} />
-            <col style={{ width: '17.5%' }} />
-            <col style={{ width: '17.5%' }} />
-            <col style={{ width: '17.5%' }} />
-            <col style={{ width: '17.5%' }} />
+            <col style={{ width: '10%' }} />
+            <col style={{ width: '10%' }} />
+            <col style={{ width: '10%' }} />
+            <col style={{ width: '10%' }} />
+            <col style={{ width: '10%' }} />
+            <col style={{ width: '10%' }} />
+            <col style={{ width: '10%' }} />
           </colgroup>
           <thead>
             {headerGroups.map(headerGroup => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map(column => (
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())} className={`px-4 py-2 border-b ${darkMode ? 'text-charcoalLight' : 'text-gray-900'}`}>
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())} className={`px-4 text-left py-2 border-b ${darkMode ? 'text-charcoalLight' : 'text-gray-900'}`}>
                     {column.render('Header')}
                     <span>
                       {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
