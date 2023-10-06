@@ -29,7 +29,20 @@ export default function Home() {
         disableFilters: true,
       },
       { Header: 'Symbol', accessor: 'symbol', Cell: ({ value }) => value.toUpperCase() },
-      { Header: 'Price', accessor: 'current_price', Cell: ({ value }) => `$${new Intl.NumberFormat().format(parseFloat(value))}` },
+      {
+        Header: 'Price',
+        accessor: 'current_price',
+        Cell: ({ value }) => {
+          const formattedPrice = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 10  // or whatever upper limit you want
+          }).format(value);
+
+          return formattedPrice;
+        }
+      },
       { Header: 'Price Change Percentage (24h)', accessor: 'price_change_percentage_24h', Cell: ({ value }) => `${parseFloat(value).toFixed(2)}%` },
       { Header: 'Name', accessor: 'name' },
       {
@@ -111,13 +124,13 @@ export default function Home() {
             <col style={{ width: '5%' }} />
             <col style={{ width: '6%' }} />
             <col style={{ width: '7%' }} />
-            <col style={{ width: '10%' }} />
-            <col style={{ width: '10%' }} />
-            <col style={{ width: '10%' }} />
-            <col style={{ width: '10%' }} />
-            <col style={{ width: '10%' }} />
-            <col style={{ width: '10%' }} />
-            <col style={{ width: '10%' }} />
+            <col style={{ width: '9%' }} />
+            <col style={{ width: '8%' }} />
+            <col style={{ width: '9%' }} />
+            <col style={{ width: '11%' }} />
+            <col style={{ width: '11%' }} />
+            <col style={{ width: '8%' }} />
+            <col style={{ width: '8%' }} />
             <col style={{ width: '10%' }} />
           </colgroup>
           <thead>
