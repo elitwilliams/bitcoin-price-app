@@ -80,11 +80,14 @@ export default function Home() {
   return (
     <div className={`${darkMode ? 'bg-charcoalDark text-charcoalLight' : 'bg-gray-100 text-gray-800'} min-h-screen p-4 font-sans`}>
 
+      <div className="flex flex-col md:flex-row justify-between items-center mb-4">
 
-      <div className="flex justify-between items-center mb-4">
-        <h1 className={`text-3xl font-bold`}>
-          Top Cryptocurrencies by Market Cap
+        {/* Title */}
+        <h1 className={`text-3xl font-bold mb-2 md:mb-0`}>
+          Top 100 Cryptocurrencies
         </h1>
+
+        {/* Filter and Dark Mode Toggle */}
         <div className="flex items-center space-x-4">
           <GlobalFilter
             preGlobalFilteredRows={preGlobalFilteredRows}
@@ -96,6 +99,7 @@ export default function Home() {
             {darkMode ? <span className="text-charcoalLight">🌙</span> : <span className="text-charcoalDark">🌞</span>}
           </button>
         </div>
+
       </div>
       <div className="overflow-x-auto">
         <table
@@ -181,7 +185,7 @@ function Footer() {
 
   return (
     <footer className="mt-10 mb-10 text-center">
-      © {currentYear} SQS Trading Group LLC - Made with 🤖 in 🗽
+      © {currentYear} - Made with 🤖 in 🗽
     </footer>
   );
 }
