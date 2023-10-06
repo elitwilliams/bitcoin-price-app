@@ -3,7 +3,7 @@ import { useTable, useFilters, useGlobalFilter, useSortBy } from 'react-table';
 
 export default function Home() {
   const [data, setData] = useState([]);
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(true);  // dark mode default
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,7 +17,7 @@ export default function Home() {
   const columns = useMemo(
     () => [
       {
-        Header: '#',
+        Header: 'Rank',
         id: 'rank',
         accessor: (row, i) => i + 1,
         disableFilters: true,
@@ -29,7 +29,7 @@ export default function Home() {
         disableFilters: true,
       },
       { Header: 'Name', accessor: 'name' },
-      { Header: 'Price', accessor: 'current_price', Cell: ({ value }) => `$${parseFloat(value).toFixed(2)}` },
+      { Header: 'Price', accessor: 'current_price', Cell: ({ value }) => `$${new Intl.NumberFormat().format(parseFloat(value))}` },
       { Header: 'Symbol', accessor: 'symbol', Cell: ({ value }) => value.toUpperCase() },
       {
         Header: 'Volume',
@@ -53,8 +53,6 @@ export default function Home() {
     []
   );
 
-  const today = new Date().toLocaleDateString();
-
   const {
     getTableProps,
     getTableBodyProps,
@@ -66,11 +64,12 @@ export default function Home() {
     setGlobalFilter,
   } = useTable({ columns, data }, useFilters, useGlobalFilter, useSortBy);
 
+
   return (
-    <div className={`font-gabarito ${darkMode ? 'bg-charcoalDark' : 'bg-gray-100'} min-h-screen p-4`}>
+    <div className={`${darkMode ? 'bg-charcoalDark text-charcoalLight' : 'bg-gray-100 text-gray-800'} min-h-screen p-4 font-sans`}>
       <div className="flex justify-between items-center mb-4">
-        <h1 className={`text-3xl font-bold ${darkMode ? 'text-charcoalLight' : 'text-black'}`}>
-          Top Cryptocurrencies by Market Cap - {today}
+        <h1 className={`text-3xl font-bold`}>
+          Top Cryptocurrencies by Market Cap
         </h1>
         <div className="flex items-center space-x-4">
           <GlobalFilter
@@ -79,32 +78,36 @@ export default function Home() {
             setGlobalFilter={setGlobalFilter}
             darkMode={darkMode}
           />
-          <div className="relative inline-block text-left">
-            <button onClick={() => setDarkMode(!darkMode)} className="flex items-center">
-              {darkMode ? <span className="text-charcoalLight mr-1">🌙</span> : <span className="text-charcoalDark mr-1">💡</span>}
-            </button>
-          </div>
+          <button onClick={() => setDarkMode(!darkMode)} className="flex items-center">
+            {darkMode ? <span className="text-charcoalLight">🌙</span> : <span className="text-charcoalDark">🌞</span>}
+          </button>
         </div>
       </div>
 
-      <table {...getTableProps()} className={`mx-auto w-4/5 min-w-full shadow-md rounded-lg overflow-hidden ${darkMode ? 'bg-charcoalMedium text-charcoalLight' : 'bg-white text-black'} table-fixed`}>
+      <table {...getTableProps()} className={`mx-auto w-4/5 min-w-full shadow-md rounded-lg overflow-hidden ${darkMode ? 'bg-charcoalLighter text-charcoalLight' : 'bg-white text-black'} table-fixed`}>
+
         <colgroup>
           <col style={{ width: '5%' }} />
           <col style={{ width: '10%' }} />
-          <col style={{ width: '20%' }} />
-          <col style={{ width: '10%' }} />
-          <col style={{ width: '15%' }} />
-          <col style={{ width: '15%' }} />
-          <col style={{ width: '10%' }} />
-          <col style={{ width: '7.5%' }} />
-          <col style={{ width: '7.5%' }} />
+          <col style={{ width: '17.5%' }} />
+          <col style={{ width: '17.5%' }} />
+          <col style={{ width: '17.5%' }} />
+          <col style={{ width: '17.5%' }} />
+          <col style={{ width: '17.5%' }} />
+          <col style={{ width: '17.5%' }} />
+          <col style={{ width: '17.5%' }} />
+          <col style={{ width: '17.5%' }} />
+          <col style={{ width: '17.5%' }} />
         </colgroup>
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()} className={`px-4 py-2 border-b border-gray-500 ${darkMode ? 'underline text-gray-200' : 'text-gray-900'}`}>
+                <th {...column.getHeaderProps(column.getSortByToggleProps())} className={`px-4 py-2 border-b ${darkMode ? 'text-charcoalLight' : 'text-gray-900'}`}>
                   {column.render('Header')}
+                  <span>
+                    {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                  </span>
                 </th>
               ))}
             </tr>
@@ -114,7 +117,7 @@ export default function Home() {
           {rows.map(row => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
+              <tr {...row.getRowProps()} style={{ borderBottom: `1px solid ${darkMode ? '#2f2f30' : '#dfdfef'}` }}>
                 {row.cells.map(cell => (
                   <td {...cell.getCellProps()} className={`px-4 py-2`}>
                     {cell.render('Cell')}
@@ -125,9 +128,11 @@ export default function Home() {
           })}
         </tbody>
       </table>
+      <Footer />
     </div>
   );
 }
+
 
 function GlobalFilter({
   preGlobalFilteredRows,
@@ -138,7 +143,7 @@ function GlobalFilter({
   const count = preGlobalFilteredRows.length;
 
   return (
-    <span className={`p-2 rounded ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
+    <span>
       Search:{' '}
       <input
         value={globalFilter || ''}
@@ -146,8 +151,19 @@ function GlobalFilter({
           setGlobalFilter(e.target.value || undefined);
         }}
         placeholder={`${count} records...`}
-        className={`p-2 border rounded ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}
+        className={`p-2 border rounded ${darkMode ? 'bg-charcoalMedium text-charcoalLight' : 'bg-white text-gray-900'}`}
       />
     </span>
+  );
+}
+
+
+function Footer() {
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer className="mt-10 mb-10 text-center">
+      © {currentYear} - Made with 🤖 in 🗽
+    </footer>
   );
 }
