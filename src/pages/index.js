@@ -8,8 +8,18 @@ export default function Home() {
   useEffect(() => {
     const fetchPrice = async () => {
       const res = await fetch("/api/price");
-      const data = await res.text();
-      setPrice(data);
+      const data = await res.json();
+      console.log("Data from API:", data);
+
+      // Remove commas from the string before parsing it
+      const priceValue = parseFloat(data.replace(/,/g, ''));
+
+      if (!isNaN(priceValue)) {  // check if conversion was successful
+        const formattedPrice = priceValue.toFixed(2);
+        // Add commas back as thousands separators
+        const formattedWithCommas = new Intl.NumberFormat().format(formattedPrice);
+        setPrice(formattedWithCommas);
+      }
     };
     fetchPrice();
   }, []);
