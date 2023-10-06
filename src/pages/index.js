@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useTable, useFilters, useGlobalFilter, useSortBy } from 'react-table';
+import Navbar from '../components/Navbar'; // Adjust the path based on your file structure
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -77,9 +78,9 @@ export default function Home() {
     setGlobalFilter,
   } = useTable({ columns, data }, useFilters, useGlobalFilter, useSortBy);
 
-
   return (
     <div className={`${darkMode ? 'bg-charcoalDark text-charcoalLight' : 'bg-gray-100 text-gray-800'} min-h-screen p-4 font-sans`}>
+
       <div className="flex justify-between items-center mb-4">
         <h1 className={`text-3xl font-bold`}>
           Top Cryptocurrencies by Market Cap
@@ -96,60 +97,60 @@ export default function Home() {
           </button>
         </div>
       </div>
+      <div className="overflow-x-auto">
+        <table
+          {...getTableProps()}
+          style={{ minWidth: '1500px' }} // Adjust this value accordingly
+          className={`mx-auto w-full shadow-md rounded-lg ${darkMode ? 'bg-charcoalLighter text-charcoalLight dark-mode' : 'bg-white text-black'} table-fixed react-table`}>
 
-      <table
-        {...getTableProps()}
-        className={`mx-auto w-4/5 min-w-full shadow-md rounded-lg overflow-hidden ${darkMode ? 'bg-charcoalLighter text-charcoalLight dark-mode' : 'bg-white text-black'
-          } table-fixed react-table`}
-      >
-
-        <colgroup>
-          <col style={{ width: '5%' }} />
-          <col style={{ width: '10%' }} />
-          <col style={{ width: '17.5%' }} />
-          <col style={{ width: '17.5%' }} />
-          <col style={{ width: '17.5%' }} />
-          <col style={{ width: '17.5%' }} />
-          <col style={{ width: '17.5%' }} />
-          <col style={{ width: '17.5%' }} />
-          <col style={{ width: '17.5%' }} />
-          <col style={{ width: '17.5%' }} />
-          <col style={{ width: '17.5%' }} />
-        </colgroup>
-        <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())} className={`px-4 py-2 border-b ${darkMode ? 'text-charcoalLight' : 'text-gray-900'}`}>
-                  {column.render('Header')}
-                  <span>
-                    {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map(row => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()} style={{ borderBottom: `1px solid ${darkMode ? '#2f2f30' : '#dfdfef'}` }}>
-                {row.cells.map(cell => (
-                  <td {...cell.getCellProps()} className={`px-4 py-2`}>
-                    {cell.render('Cell')}
-                  </td>
+          <colgroup>
+            <col style={{ width: '5%' }} />
+            <col style={{ width: '10%' }} />
+            <col style={{ width: '17.5%' }} />
+            <col style={{ width: '17.5%' }} />
+            <col style={{ width: '17.5%' }} />
+            <col style={{ width: '17.5%' }} />
+            <col style={{ width: '17.5%' }} />
+            <col style={{ width: '17.5%' }} />
+            <col style={{ width: '17.5%' }} />
+            <col style={{ width: '17.5%' }} />
+            <col style={{ width: '17.5%' }} />
+          </colgroup>
+          <thead>
+            {headerGroups.map(headerGroup => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map(column => (
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())} className={`px-4 py-2 border-b ${darkMode ? 'text-charcoalLight' : 'text-gray-900'}`}>
+                    {column.render('Header')}
+                    <span>
+                      {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                    </span>
+                  </th>
                 ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map(row => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()} style={{ borderBottom: `1px solid ${darkMode ? '#2f2f30' : '#dfdfef'}` }}>
+                  {row.cells.map(cell => (
+                    <td {...cell.getCellProps()} className={`px-4 py-2`}>
+                      {cell.render('Cell')}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div >
       <Footer />
-    </div>
+    </div >
+
   );
 }
-
 
 function GlobalFilter({
   preGlobalFilteredRows,
@@ -184,3 +185,5 @@ function Footer() {
     </footer>
   );
 }
+
+
